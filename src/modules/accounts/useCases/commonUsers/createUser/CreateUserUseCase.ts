@@ -4,6 +4,8 @@ import IUsersRepository from "../../../repositories/IUsersRepository";
 import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
 
+import AppError from "../../../../../shared/errors/AppError";
+
 interface IRequest {
   name: string;
   username: string;
@@ -30,21 +32,21 @@ export default class CreateUserUseCase {
     const checkEmail = await this.usersRepository.findByEmail(email);
 
     if (checkUsername && checkEmail)
-      throw new Error("Username and Email are already in use");
+      throw new AppError("Username and Email are already in use");
 
     if (!checkUsername && checkEmail)
-      throw new Error("Email is already in use");
+      throw new AppError("Email is already in use");
 
     if (checkUsername && !checkEmail)
-      throw new Error("Username is already in use");
+      throw new AppError("Username is already in use");
 
     if (confirm_password !== password)
-      throw new Error("Passwords does not match");
+      throw new AppError("Passwords does not match");
 
     const checkPasswordLength = password.split("");
 
     if (checkPasswordLength.length < 8)
-      throw new Error("Password must have a minimum of 8 characters");
+      throw new AppError("Password must have a minimum of 8 characters");
 
     const encryptedPassword = await hash(password, 10);
 

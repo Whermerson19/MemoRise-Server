@@ -1,6 +1,8 @@
 import FakeUsersRepository from "../../../repositories/fakes/FakeUsersRepository";
 import CreateUserUseCase from "./CreateUserUseCase";
 
+import AppError from "../../../../../shared/errors/AppError";
+
 let fakeUsersRepository: FakeUsersRepository;
 let createUsersUseCase: CreateUserUseCase;
 
@@ -39,7 +41,7 @@ describe("Create User", () => {
         password: "12345678",
         confirm_password: "12345678",
       });
-    }).rejects.toBeInstanceOf(Error);
+    }).rejects.toBeInstanceOf(AppError);
   });
 
   it("should not be able to create a new user with same email", async () => {
@@ -59,7 +61,7 @@ describe("Create User", () => {
         password: "12345678",
         confirm_password: "12345678",
       });
-    }).rejects.toBeInstanceOf(Error);
+    }).rejects.toBeInstanceOf(AppError);
   });
 
   it("should not be able to create a new user if passwords not match", async () => {
@@ -71,7 +73,7 @@ describe("Create User", () => {
         password: "password",
         confirm_password: "wrong_confirm_password",
       });
-    }).rejects.toBeInstanceOf(Error);
+    }).rejects.toBeInstanceOf(AppError);
   });
 
   it("should not be able to create a new user with password less than 8 characters", async () => {
@@ -83,6 +85,6 @@ describe("Create User", () => {
         password: "123456",
         confirm_password: "123456",
       });
-    }).rejects.toBeInstanceOf(Error);
+    }).rejects.toBeInstanceOf(AppError);
   });
 });

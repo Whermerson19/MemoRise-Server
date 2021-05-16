@@ -1,0 +1,60 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "MemoRise Documentation",
+    "description": "API MemorRise - nodeJS | express | typescript",
+    "version": "1.0"
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create User",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minimum": 8
+                  },
+                  "confirm_password": {
+                    "type": "string",
+                    "minimum": 8
+                  }
+                }
+              },
+              "example": {
+                "name": "Jonh Doe",
+                "username": "jonh_doe",
+                "email": "jonh_doe@email.com",
+                "password": "password",
+                "confirm_password": "password"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "instance of AppError"
+          }
+        }
+      }
+    }
+  }
+}
