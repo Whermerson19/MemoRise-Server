@@ -22,7 +22,7 @@ export default class Authorization {
     const [, token] = authHeaders.split(" ");
 
     try {
-      const { sub } = verify(token, authConfig.jwt.secrete) as IPayload;
+      const { sub } = verify(token, authConfig.jwt.secret) as IPayload;
 
       const usersRepository = new UsersRepository();
 
@@ -50,7 +50,7 @@ export default class Authorization {
     const [, token] = authHeaders.split(" ");
 
     try {
-      const { sub } = verify(token, authConfig.jwt.secrete) as IPayload;
+      const { sub } = verify(token, authConfig.jwt.secret) as IPayload;
 
       const usersRepository = new UsersRepository();
 
