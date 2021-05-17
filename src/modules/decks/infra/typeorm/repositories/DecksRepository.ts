@@ -23,10 +23,15 @@ export default class DecksRepository implements IDecksRepository {
     return deck;
   }
 
-  public async create({ title, subtitle }: ICreateDeckDTO): Promise<Deck> {
+  public async create({
+    title,
+    subtitle,
+    user_id,
+  }: ICreateDeckDTO): Promise<Deck> {
     const deck = this.ormRepository.create({
       title,
       subtitle,
+      user_id,
     });
 
     return this.ormRepository.save(deck);
