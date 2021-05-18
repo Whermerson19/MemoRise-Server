@@ -11,6 +11,17 @@ export default class DecksRepository implements IDecksRepository {
     this.ormRepository = getRepository(Deck);
   }
 
+  public async index(user_id: string): Promise<Deck[]> {
+    const decks = await this.ormRepository.find({
+      where: {
+        user_id,
+      },
+      relations: ["user"],
+    });
+
+    return decks;
+  }
+
   public async findById(id: string): Promise<Deck | undefined> {
     const deck = await this.ormRepository.findOne(id);
 
