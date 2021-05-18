@@ -2,11 +2,10 @@ import { Router } from "express";
 import { celebrate, Joi, Segments } from "celebrate";
 
 import CreateUserController from "../../../useCases/users/createUser/CreateUserController";
-import Authorization from "../../../../../shared/infra/http/middlewares/Authorization";
+import ensureAuthenticated from "../../../../../shared/infra/http/middlewares/ensureAuthenticated";
 import UpdateUserController from "../../../useCases/users/updateUserProfile/UpdateUserController";
 
 const userRouter = Router();
-const authorization = new Authorization();
 
 const createUserController = new CreateUserController();
 const updateUserController = new UpdateUserController();
@@ -27,7 +26,7 @@ userRouter.post(
 
 userRouter.put(
   "/",
-  authorization.userAccess,
+  ensureAuthenticated,
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
