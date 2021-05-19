@@ -5,12 +5,14 @@ import ensureAuthenticated from "../../../../../shared/infra/http/middlewares/en
 import ListDecksController from "../../../useCases/decks/listDecks/ListDecksController";
 import CreateDeckController from "../../../useCases/decks/createDeck/CreateDeckController";
 import UpdateDeckController from "../../../useCases/decks/updateDeck/UpdateDeckController";
+import DeleteDeckController from "../../../useCases/decks/deleteDeck/DeleteDeckController";
 
 const deckRouter = Router();
 
 const listDecksController = new ListDecksController();
 const createDeckControlle = new CreateDeckController();
 const updateDeckController = new UpdateDeckController();
+const deleteDeckController = new DeleteDeckController();
 
 deckRouter.get("/", ensureAuthenticated, listDecksController.handle);
 
@@ -37,5 +39,7 @@ deckRouter.put(
   }),
   updateDeckController.handle
 );
+
+deckRouter.delete("/:id", ensureAuthenticated, deleteDeckController.handle);
 
 export default deckRouter;

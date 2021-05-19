@@ -7,4 +7,5 @@ export default interface IDecksRepository {
   findByTitle(title: string): Promise<Deck | undefined>;
   create(data: ICreateDeckDTO): Promise<Deck>;
   save(deck: Deck): Promise<Deck>;
+  delete(id: string): Promise<void>;
 }

@@ -24,7 +24,11 @@ export default class FakeDecksRepository implements IDecksRepository {
     return deck;
   }
 
-  public async create({ title, subtitle, user_id }: ICreateDeckDTO): Promise<Deck> {
+  public async create({
+    title,
+    subtitle,
+    user_id,
+  }: ICreateDeckDTO): Promise<Deck> {
     const deck = new Deck();
 
     Object.assign(deck, {
@@ -43,5 +47,11 @@ export default class FakeDecksRepository implements IDecksRepository {
 
   public async save(deck: Deck): Promise<Deck> {
     return deck;
+  }
+
+  public async delete(id: string): Promise<void> {
+    const deck = this.decks.filter((deck) => deck.id !== id);
+
+    this.decks = deck
   }
 }

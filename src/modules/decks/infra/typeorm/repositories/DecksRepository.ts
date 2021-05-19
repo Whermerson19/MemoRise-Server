@@ -51,4 +51,8 @@ export default class DecksRepository implements IDecksRepository {
   public async save(deck: Deck): Promise<Deck> {
     return this.ormRepository.save(deck);
   }
+
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
+  }
 }
