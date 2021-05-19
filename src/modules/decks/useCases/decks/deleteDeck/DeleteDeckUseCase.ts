@@ -11,7 +11,7 @@ export default class DeleteDeckUseCase {
 
   public async execute(deck_id: string): Promise<void> {
     const deck = await this.decksRepository.findById(deck_id);
-    if (!deck) throw new AppError("This deck does not exist");
+    if (!deck) throw new AppError("This deck does not exist", 404);
 
     await this.decksRepository.delete(deck_id);
   }
