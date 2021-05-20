@@ -64,18 +64,21 @@ describe("List Cards", () => {
       front: "card 01 title",
       versus: "card 01 versus",
       deck_id: deck.id,
+      user_id: session.user.id
     });
 
     await createCardUseCase.execute({
       front: "card 02 title",
       versus: "card 02 versus",
       deck_id: deck.id,
+      user_id: session.user.id
     });
 
     await createCardUseCase.execute({
       front: "card 03 title",
       versus: "card 03 versus",
       deck_id: deck.id,
+      user_id: session.user.id
     });
 
     const cards = await listCardsUseCase.execute({
@@ -117,6 +120,7 @@ describe("List Cards", () => {
         front: "card 01 title",
         versus: "card 01 versus",
         deck_id: deck1.id,
+        user_id: session.user.id
       });
 
       await listCardsUseCase.execute({
@@ -159,18 +163,21 @@ describe("List Cards", () => {
         front: "card 01 title",
         versus: "card 01 versus",
         deck_id: deck.id,
+        user_id: session.user.id
       });
 
       await createCardUseCase.execute({
         front: "card 02 title",
         versus: "card 02 versus",
         deck_id: deck.id,
+        user_id: session.user.id
       });
 
       await createCardUseCase.execute({
         front: "card 03 title",
         versus: "card 03 versus",
         deck_id: deck.id,
+        user_id: session.user.id
       });
 
       await listCardsUseCase.execute({

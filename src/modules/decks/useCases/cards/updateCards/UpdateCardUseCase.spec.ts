@@ -5,7 +5,8 @@ import FakeDecksRepository from "../../../repositories/fakes/FakeDecksRepository
 import CreateSessionUseCase from "../../../../accounts/useCases/session/createSession/CreateSessionUseCase";
 import CreateUserUseCase from "../../../../accounts/useCases/users/createUser/CreateUserUseCase";
 import CreateDeckUseCase from "../../decks/createDeck/CreateDeckUseCase";
-import CreateCardUseCase from "./CreateCardUseCase";
+import CreateCardUseCase from "../createCard/CreateCardUseCase";
+import UpdateCardUseCase from "./UpdateCardUseCase";
 
 import AppError from "../../../../../shared/errors/AppError";
 
@@ -17,8 +18,9 @@ let createUserUseCase: CreateUserUseCase;
 let createSessionUseCase: CreateSessionUseCase;
 let createDeckUseCase: CreateDeckUseCase;
 let createCardUseCase: CreateCardUseCase;
+let updateCardUseCase: UpdateCardUseCase;
 
-describe("Create Card", () => {
+describe("Update Card", () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeDecksRepository = new FakeDecksRepository();
@@ -31,9 +33,10 @@ describe("Create Card", () => {
       fakeDecksRepository,
       fakeCardsRepository
     );
+    updateCardUseCase = new UpdateCardUseCase(fakeCardsRepository);
   });
 
-  it("should be able to create a card", async () => {
+  it("should be able to update a card", async () => {
     await createUserUseCase.execute({
       name: "Jonh Doe",
       username: "jonh_doe",
@@ -57,15 +60,20 @@ describe("Create Card", () => {
       front: "Front",
       versus: "Versus",
       deck_id: deck.id,
-      user_id: session.user.id
+      user_id: session.user.id,
     });
 
-    expect(deck.user_id).toEqual(session.user.id);
-    expect(deck.id).toEqual(card.deck_id);
-    expect(card).toHaveProperty("id");
+    const updatedCard = await updateCardUseCase.execute({
+      front: "Updated Front",
+      versus: "Updated Versus",
+      card_id: card.id,
+    });
+
+    expect(updatedCard.front).toEqual("Updated Front");
+    expect(updatedCard.versus).toEqual("Updated Versus");
   });
 
-  it("should not be able to create a card with invalid deck_id", async () => {
+  it("should not be able to update a card with invalid card id", async () => {
     await expect(async () => {
       await createUserUseCase.execute({
         name: "Jonh Doe",
@@ -80,7 +88,7 @@ describe("Create Card", () => {
         password: "12345678",
       });
 
-      await createDeckUseCase.execute({
+      const deck = await createDeckUseCase.execute({
         title: "Title",
         subtitle: "Subtitle",
         user_id: session.user.id,
@@ -89,8 +97,14 @@ describe("Create Card", () => {
       await createCardUseCase.execute({
         front: "Front",
         versus: "Versus",
-        deck_id: "wrong deck id",
-        user_id: session.user.id
+        deck_id: deck.id,
+        user_id: session.user.id,
+      });
+
+      await updateCardUseCase.execute({
+        front: "Updated Front",
+        versus: "Updated Versus",
+        card_id: "invalid id",
       });
     }).rejects.toBeInstanceOf(AppError);
   });
