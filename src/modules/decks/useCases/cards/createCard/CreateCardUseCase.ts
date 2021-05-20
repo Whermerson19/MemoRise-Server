@@ -8,6 +8,7 @@ interface IRequest {
   front: string;
   versus: string;
   deck_id: string;
+  user_id: string;
 }
 
 @injectable()
@@ -19,7 +20,12 @@ export default class CreateCardUseCase {
     private cardsRepository: ICardsRepository
   ) {}
 
-  public async execute({ front, versus, deck_id }: IRequest): Promise<Card> {
+  public async execute({
+    front,
+    versus,
+    deck_id,
+    user_id,
+  }: IRequest): Promise<Card> {
     const deck = await this.decksRepository.findById(deck_id);
     if (!deck) throw new AppError("Invali deck");
 
@@ -27,6 +33,7 @@ export default class CreateCardUseCase {
       front,
       versus,
       deck_id,
+      user_id,
     });
 
     return card;

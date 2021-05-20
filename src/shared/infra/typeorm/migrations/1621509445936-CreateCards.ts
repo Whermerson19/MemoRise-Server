@@ -18,6 +18,10 @@ export class CreateCards1621509445936 implements MigrationInterface {
             type: "varchar",
           },
           {
+            name: "user_id",
+            type: "varchar",
+          },
+          {
             name: "front",
             type: "varchar",
           },
@@ -42,6 +46,14 @@ export class CreateCards1621509445936 implements MigrationInterface {
             referencedTableName: "decks",
             referencedColumnNames: ["id"],
             columnNames: ["deck_id"],
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
+          },
+          {
+            name: "FKUserCards",
+            referencedTableName: "users",
+            referencedColumnNames: ["id"],
+            columnNames: ["user_id"],
             onDelete: "CASCADE",
             onUpdate: "CASCADE",
           },
