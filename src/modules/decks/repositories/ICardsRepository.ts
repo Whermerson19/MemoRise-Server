@@ -6,4 +6,5 @@ export default interface ICardsRepository {
   findById(id: string): Promise<Card | undefined>;
   create(data: ICreateCardDTO): Promise<Card>;
   save(card: Card): Promise<Card>;
+  delete(id: string): Promise<void>;
 }

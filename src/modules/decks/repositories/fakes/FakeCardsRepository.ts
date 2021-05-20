@@ -22,7 +22,7 @@ export default class FakeCardsRepository implements ICardsRepository {
     front,
     versus,
     deck_id,
-    user_id
+    user_id,
   }: ICreateCardDTO): Promise<Card> {
     const card = new Card();
 
@@ -43,5 +43,10 @@ export default class FakeCardsRepository implements ICardsRepository {
 
   public async save(card: Card): Promise<Card> {
     return card;
+  }
+
+  public async delete(id: string): Promise<void> {
+    const filteredCards = this.cards.filter((card) => card.id !== id);
+    this.cards = filteredCards;
   }
 }

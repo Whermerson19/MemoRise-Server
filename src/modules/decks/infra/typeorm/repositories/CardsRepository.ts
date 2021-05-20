@@ -23,7 +23,7 @@ export default class CardsRepository implements ICardsRepository {
       where: {
         deck_id,
       },
-      relations:["deck", "user"]
+      relations: ["deck", "user"],
     });
   }
 
@@ -45,5 +45,9 @@ export default class CardsRepository implements ICardsRepository {
 
   public async save(card: Card): Promise<Card> {
     return this.ormRepository.save(card);
+  }
+
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
   }
 }
