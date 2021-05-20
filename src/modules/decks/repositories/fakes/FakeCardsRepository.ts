@@ -5,7 +5,7 @@ import Card from "../../infra/typeorm/entities/Card";
 import ICreateCardDTO from "../../dtos/ICreateCardDTO";
 import ICardsRepository from "../ICardsRepository";
 
-export default class FakeCardsrRepository implements ICardsRepository {
+export default class FakeCardsRepository implements ICardsRepository {
   private cards: Card[] = [];
 
   public async findById(id: string): Promise<Card | undefined> {
