@@ -83,8 +83,38 @@ describe("Delete Card", () => {
       user_id: session.user.id,
     });
 
-    console.log(cards)
-
     expect(cards.length).toEqual(1);
+  });
+
+  it("should not be able to delete a card with invalid card id", async () => {
+    await expect(async () => {
+      await createUserUseCase.execute({
+        name: "Jonh Doe",
+        username: "jonh_doe",
+        email: "jonh_doe@email.com",
+        password: "12345678",
+        confirm_password: "12345678",
+      });
+
+      const session = await createSessionUseCase.execute({
+        loginField: "jonh_doe",
+        password: "12345678",
+      });
+
+      const deck = await createDeckUseCase.execute({
+        title: "Title",
+        subtitle: "Subtitle",
+        user_id: session.user.id,
+      });
+
+      const card = await createCardUseCase.execute({
+        front: "Front 01",
+        versus: "Versus 01",
+        deck_id: deck.id,
+        user_id: session.user.id,
+      });
+
+      await deleteCardUseCase.execute("wrong card id");
+    }).rejects.toBeInstanceOf(AppError);
   });
 });
