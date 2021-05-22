@@ -1,3 +1,5 @@
+import "./providers";
+
 import { container } from "tsyringe";
 
 import IUsersRepository from "../../modules/accounts/repositories/IUsersRepository";
