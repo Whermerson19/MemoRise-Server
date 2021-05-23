@@ -2,6 +2,7 @@ import "reflect-metadata";
 
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
+import path from 'path'
 
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "./swagger.json";
@@ -18,6 +19,8 @@ const app = express();
 app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+app.use("/files/avatar", express.static(path.resolve(__dirname, "..", "tmp", 'avatar')))
 
 app.use(appRouter);
 app.use(errors());

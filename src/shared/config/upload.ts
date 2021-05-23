@@ -5,7 +5,8 @@ const tmpFolder = path.resolve(__dirname, "..", "..", "..", "tmp");
 
 const uploadConfig = {
   tmpFolder,
-  destination: multer.diskStorage({
+  directory: tmpFolder,
+  storage: multer.diskStorage({
     destination: tmpFolder,
     filename: (request, file, cb) => {
       const encode = Math.floor(Math.random() * 987676);

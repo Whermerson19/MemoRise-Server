@@ -41,7 +41,7 @@ export default class User {
   @Expose({ name: "avatarURL" })
   getAvatarURL(): string | null {
     return this.avatar
-      ? `http:localhost:3333/files/avatar/${this.avatar}`
+      ? `http://localhost:3333/files/avatar/${this.avatar}`
       : null;
   }
 }
