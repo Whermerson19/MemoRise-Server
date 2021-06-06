@@ -7,12 +7,12 @@ export default class UpdateDeckController {
   public async handle(request: Request, response: Response): Promise<Response> {
     const updateDeckUseCase = container.resolve(UpdateDeckUseCase);
 
-    const { list_id } = request.params;
+    const { deck_id } = request.params;
 
     const { title, subtitle } = request.body;
 
     const deck = await updateDeckUseCase.execute({
-      list_id,
+      deck_id,
       title,
       subtitle,
     });

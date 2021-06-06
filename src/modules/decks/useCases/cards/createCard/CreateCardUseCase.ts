@@ -27,7 +27,7 @@ export default class CreateCardUseCase {
     user_id,
   }: IRequest): Promise<Card> {
     const deck = await this.decksRepository.findById(deck_id);
-    if (!deck) throw new AppError("Invali deck");
+    if (!deck) throw new AppError("Invali deck", 404);
 
     const card = await this.cardsRepository.create({
       front,

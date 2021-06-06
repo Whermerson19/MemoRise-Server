@@ -29,7 +29,7 @@ deckRouter.post(
 );
 
 deckRouter.put(
-  "/:list_id",
+  "/:deck_id",
   ensureAuthenticated,
   celebrate({
     [Segments.BODY]: Joi.object().keys({

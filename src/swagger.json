@@ -54,6 +54,51 @@
             "description": "instance of AppError"
           }
         }
+      },
+      "put": {
+        "tags": ["User"],
+        "summary": "Update Profile",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "current_password": {
+                    "type": "string"
+                  },
+                  "new_password": {
+                    "type": "string"
+                  },
+                  "confirm_new_password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "update user successfully"
+          },
+          "404": {
+            "description": "This user does not exist"
+          },
+          "400": {
+            "description": "Error with passwords"
+          }
+        }
       }
     },
     "/session": {
@@ -179,7 +224,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "header",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string"
@@ -192,6 +237,135 @@
           },
           "404": {
             "description": "This deck does not exist"
+          }
+        }
+      }
+    },
+    "/cards": {
+      "post": {
+        "tags": ["Cards"],
+        "description": "Create card",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "front": {
+                    "type": "string"
+                  },
+                  "versus": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "deck_id",
+            "in": "path",
+            "description": "Deck id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "404": {
+            "description": "Invalid Deck"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Cards"],
+        "summary": "List Cards",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "card_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Ok" },
+          "404": {
+            "description": "This deck does not exist"
+          },
+          "403": {
+            "description": "Unauthorizated user"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Cards"],
+        "summary": "Update card",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "front": {
+                    "type": "string"
+                  },
+                  "versus": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "card_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "404": {
+            "description": "This card does not exists"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Cards"],
+        "summary": "Delete card",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "This card does not exists"
           }
         }
       }

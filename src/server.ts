@@ -13,8 +13,8 @@ import AppError from "./shared/errors/AppError";
 
 import appRouter from "./shared/infra/http/routes";
 
-import "./shared/container";
 import "./shared/infra/typeorm";
+import "./shared/container";
 
 const app = express();
 app.use(express.json());

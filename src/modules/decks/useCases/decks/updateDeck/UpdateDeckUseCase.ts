@@ -6,7 +6,7 @@ import IDecksRepository from "../../../repositories/IDecksRepository";
 import AppError from "../../../../../shared/errors/AppError";
 
 interface IRequest {
-  list_id: string;
+  deck_id: string;
   title: string;
   subtitle?: string;
 }
@@ -18,8 +18,8 @@ export default class UpdateDeckUseCase {
     private decksRepository: IDecksRepository
   ) {}
 
-  public async execute({ list_id, title, subtitle }: IRequest): Promise<Deck> {
-    const deck = await this.decksRepository.findById(list_id);
+  public async execute({ deck_id, title, subtitle }: IRequest): Promise<Deck> {
+    const deck = await this.decksRepository.findById(deck_id);
 
     if (!deck) throw new AppError("This deck does not exist", 404);
 
